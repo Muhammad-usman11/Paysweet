@@ -1,55 +1,98 @@
-import React from 'react'
+import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../services/firebase";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { useStoreActions } from "easy-peasy";
+
 const UserSignUp = () => {
+  const navigate = useNavigate();
+  const user = useStoreActions((action) => action.setUser);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [data, setData] = useState([]);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const userSignUp = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      navigate("/login");
+      console.log(userSignUp);
+const uniqueDoc = doc(db, "users", "userSignUp.user.uid ")
+      const docRef = await setDoc(uniqueDoc, {
+        email: userSignUp.user.email,
+        uid: userSignUp.user.uid,
+        displayName: "Rty",
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+      console.log(docRef, "doc");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <section className="flex flex-col md:flex-row  items-center">
-       
+      <section className="flex flex-col md:flex-row  ">
         <div
           className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3  px-6 lg:px-16 xl:px-12
   flex items-center justify-center"
         >
           <div className="w-full ">
-          <h2 className=" text-[32px] font-bold text-[#0652DD] " >Paysweet</h2>
+            <h2 className=" text-[32px] font-bold text-[#0652DD] ">Paysweet</h2>
             <h1 className="text-xl md:text-[56px] font-bold leading-tight mt-[150px] ">
-            Sign up
+              Sign up
             </h1>
-            <h4 className=' text-[18px] mt-[20px] ' >Continue with your email or sign up using an existing account such as Google. </h4>
-           
+            <h4 className=" text-[18px] mt-[20px] ">
+              Continue with your email or sign up using an existing account such
+              as Google.{" "}
+            </h4>
+
             <form className="mt-6" action="#" method="POST">
               <div>
                 <label className="block text-gray-700">Email Address</label>
                 <input
                   type="email"
-                  name=""
-                  id=""
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                   placeholder="Enter Email Address"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                  autofocus=""
+                  autoFocus=""
                   autoComplete=""
-                  required=""
                 />
               </div>
               <div className="mt-4">
                 <label className="block text-gray-700">Password</label>
                 <input
                   type="password"
-                  name=""
-                  id=""
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
                   placeholder="Enter Password"
                   minLength={6}
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
           focus:bg-white focus:outline-none"
-                  required=""
                 />
               </div>
-              
+
               <button
                 type="submit"
+                onClick={onSubmit}
                 className="w-full block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg
         px-4 py-3 mt-6"
               >
-                Sign Up 
+                Sign Up
               </button>
             </form>
             <hr className="my-6 border-gray-300 w-full" />
@@ -94,9 +137,9 @@ const UserSignUp = () => {
               </div>
             </button>
             <p className="mt-8">
-            Already have an account?{" "}
+              Already have an account?{" "}
               <Link
-               to="/login"
+                to="/login"
                 className="text-blue-500 hover:text-blue-700 font-semibold"
               >
                 Log in
@@ -108,12 +151,12 @@ const UserSignUp = () => {
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
             alt=""
-            className="w-full  object-cover"
+            className="w-full h-[100%]  object-cover"
           />
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default UserSignUp
+export default UserSignUp;

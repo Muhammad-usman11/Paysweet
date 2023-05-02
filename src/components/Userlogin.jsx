@@ -1,14 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
+import GoogleSignIn from "./googleSignIn";
+import {signInWithEmailAndPassword} from 'firebase/auth'
+import {auth} from '../services/firebase'
 
-
+import { useStoreActions } from "easy-peasy";
 
 
 
 const Userlogin = () => {
+  const [email,setEmail] = useState('')
+  const [pass,setPass] =useState()
+  const {handleLoggin} = GoogleSignIn()
+
+  const setUser = useStoreActions((actions) => actions.setUser);
+
+  const logInWithEmailAndPassword = async (e) => {
+    e.preventDefault()
+    try {
+    const res =  await signInWithEmailAndPassword(auth, email, pass);
+    console.log(res);
+    setUser(res.user)
+    console.log("new data :" ,res.user);
+
+    } catch (err) {
+      console.error(err);
+      alert(err.message);
+    }
+  };
   return (
     <>
-      <section className="flex flex-col md:flex-row  items-center">
+      <section className="flex flex-col md:flex-row min-h-screen  ">
        
         <div
           className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto  md:w-1/2 xl:w-1/3  px-6 lg:px-16 xl:px-12
@@ -16,11 +38,11 @@ const Userlogin = () => {
         >
           <div className="w-full ">
           <h2 className=" text-[32px] font-bold text-[#0652DD] " >Paysweet</h2>
-            <h1 className="text-xl md:text-2xl font-bold leading-tight mt-[150px] ">
-              Log in to your account
+            <h1 className="text-xl md:text-6xl font-bold leading-tight mt-[150px] ">
+              Log in 
             </h1>
            
-            <form className="mt-6" action="#" method="POST">
+            <form className="mt-6" onSubmit={logInWithEmailAndPassword} >
               <div>
                 <label className="block text-gray-700">Email Address</label>
                 <input
@@ -29,9 +51,10 @@ const Userlogin = () => {
                   id=""
                   placeholder="Enter Email Address"
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                  autofocus=""
+                  autoFocus=""
                   autoComplete=""
                   required=""
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mt-4">
@@ -45,6 +68,8 @@ const Userlogin = () => {
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
           focus:bg-white focus:outline-none"
                   required=""
+                  onChange={(e) => setPass(e.target.value)}
+
                 />
               </div>
               <div className="text-right mt-2">
@@ -65,6 +90,7 @@ const Userlogin = () => {
             </form>
             <hr className="my-6 border-gray-300 w-full" />
             <button
+            onClick={handleLoggin}
               type="button"
               className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
             >
@@ -119,7 +145,7 @@ const Userlogin = () => {
           <img
             src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
             alt=""
-            className="w-full  object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
       </section>
