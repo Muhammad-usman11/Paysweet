@@ -39,6 +39,12 @@ export const useAuthentication = () => {
         id: userSignUp.user.uid,
         data: userInfo,
       });
+
+      setUser({
+        displayName: userInfo.displayName,
+        email: userInfo.email,
+        id: userSignUp.user.uid,
+      });
       console.log(userSignUp);
       navigate('/login');
     } catch (error) {
