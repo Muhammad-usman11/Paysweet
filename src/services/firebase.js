@@ -1,9 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getAuth, GoogleAuthProvider} from 'firebase/auth'
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -17,7 +16,7 @@ const firebaseConfig = {
   storageBucket: "invoiceapp-9d13c.appspot.com",
   messagingSenderId: "100733824249",
   appId: "1:100733824249:web:10e454168efe53a3f68628",
-  measurementId: "G-C5KRC20735"
+  measurementId: "G-C5KRC20735",
 };
 
 // Initialize Firebase
@@ -25,8 +24,8 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider()
+const provider = new GoogleAuthProvider();
 
- const db = getFirestore(app);
- 
-export {auth,provider, db}
+const db = getFirestore(app);
+
+export { auth, provider, db };

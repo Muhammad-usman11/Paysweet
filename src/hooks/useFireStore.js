@@ -7,6 +7,7 @@ import {
   getDocs,
   getDoc,
   deleteDoc,
+  updateDoc 
 } from 'firebase/firestore';
 
 export const useFireStore = () => {
@@ -66,7 +67,21 @@ export const useFireStore = () => {
     }
   };
 
-  //  setDoc Hook
+  //  updateDoc  Hook
+  //  @param collectionName and id and data
+  const useUpdateDoc = async ({  data, collectionName, id }) => {
+    try {
+      const dbRef = doc(db, collectionName, id);
+
+      const res = await updateDoc(dbRef, data);
+
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //  deleteDoc Hook
   //  @param collectionName and id and data
   const useDelDoc = async ({ collectionName, id }) => {
     try {
@@ -80,5 +95,5 @@ export const useFireStore = () => {
     }
   };
 
-  return { useAddDoc, useGetDocs, useGetDoc, useSetDoc, useDelDoc };
+  return { useAddDoc, useGetDocs, useGetDoc, useSetDoc, useDelDoc, useUpdateDoc };
 };

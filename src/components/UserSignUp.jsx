@@ -1,43 +1,27 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, db } from '../services/firebase';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { useAuthentication } from '../hooks/useAuthentication';
+
+
 import { useStoreActions } from 'easy-peasy';
 
 const UserSignUp = () => {
   const navigate = useNavigate();
   const user = useStoreActions((action) => action.setUser);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [data, setData] = useState([]);
+
+  const { useUserSignUp } = useAuthentication()
+  
+  
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const userSignUp = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      navigate('/login');
-      console.log(userSignUp);
-
-      const uniqueDoc = doc(db, 'users', userSignUp.user.uid);
-      const docRef = await setDoc(uniqueDoc, {
-        email: userSignUp.user.email,
-        displayName: 'Haroon',
-      })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
-      console.log(docRef, 'doc');
-    } catch (error) {
-      console.log(error);
-    }
+    useUserSignUp()
+    
   };
 
   return (
