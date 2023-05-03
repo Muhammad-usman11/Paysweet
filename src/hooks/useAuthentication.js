@@ -26,6 +26,16 @@ export const useAuthentication = () => {
     });
   };
 
+  const handleConfirmPass = ()=>{
+    
+    // perform all neccassary validations
+    if (userInfo.password !== userInfo.confirmPassword) {
+        return false
+    } else {
+        return true
+    }
+  }
+
   const useUserSignUp = async () => {
     try {
       const userSignUp = await createUserWithEmailAndPassword(
@@ -52,5 +62,5 @@ export const useAuthentication = () => {
     }
   };
 
-  return { useUserSignUp, handleUserInfo, userInfo, setUser };
+  return { useUserSignUp, handleUserInfo, userInfo, setUser, handleConfirmPass };
 };

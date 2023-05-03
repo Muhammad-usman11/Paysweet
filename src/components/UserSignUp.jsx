@@ -3,11 +3,18 @@ import { Link } from 'react-router-dom';
 import { useAuthentication } from '../hooks/useAuthentication';
 
 const UserSignUp = () => {
-  const { useUserSignUp, handleUserInfo, userInfo } = useAuthentication();
+  const { useUserSignUp, handleUserInfo, userInfo, handleConfirmPass } = useAuthentication();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    useUserSignUp();
+    if(handleConfirmPass == true){
+      useUserSignUp();
+    }
+    else{
+      alert("pass was not match")
+    }
+    
+    
   };
 
   return (
@@ -25,13 +32,27 @@ const UserSignUp = () => {
             </h4>
 
             <form className='mt-6' action='#' method='POST'>
+            <div>
+                <label className='block text-gray-700'>Full Name</label>
+                <input
+                  type='text'
+                  name='displayName'
+                  onChange={handleUserInfo}
+                  required
+                  placeholder='Enter Full Name'
+                  className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
+                  autoFocus=''
+                  autoComplete=''
+                />
+              </div>
+              
               <div>
                 <label className='block text-gray-700'>Email Address</label>
                 <input
                   type='email'
                   name='email'
                   onChange={handleUserInfo}
-                  required
+                 
                   placeholder='Enter Email Address'
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
                   autoFocus=''
@@ -44,8 +65,21 @@ const UserSignUp = () => {
                   type='password'
                   name='password'
                   onChange={handleUserInfo}
-                  required
+                  
                   placeholder='Enter Password'
+                  minLength={6}
+                  className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
+                />
+              </div>
+
+              <div className='mt-4'>
+                <label className='block text-gray-700'> Confirm Password</label>
+                <input
+                  type='password'
+                  name='confirmPassword'
+                  onChange={handleUserInfo}
+              
+                  placeholder='Confirm Password'
                   minLength={6}
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
                 />

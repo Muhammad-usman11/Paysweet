@@ -92,13 +92,13 @@ const Navbar = () => {
               </a>
 
               <div className='hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--trigger:hover] sm:py-4'></div>
-                {user?.email !== undefined ? (
+                {user?.displayName !== undefined ? (
                   <div className='hs-dropdown [--strategy:static] sm:[--strategy:fixed] [--adaptive:none] sm:[--trigger:hover] sm:py-4'>
                     <button
                       type='button'
                       className='flex items-center w-full  hover:text-[#203D86] font-medium'
                     >
-                      {user.email}
+                      {user.displayName}
                       <svg
                         className='ml-2 w-2.5 h-2.5'
                         width='16'
