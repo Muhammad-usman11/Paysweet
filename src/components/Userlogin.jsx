@@ -5,16 +5,19 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../services/firebase';
 import { useFireStore } from '../hooks/useFireStore';
 
-
-
 const Userlogin = () => {
   const [email, setEmail] = useState('');
   const [pass, setPass] = useState();
   const { handleLoggin } = GoogleSignIn();
 
-  const { useSetDoc , useAddDoc, useGetDocs, useGetDoc, useDelDoc, useUpdateDoc } = useFireStore();
-
- 
+  const {
+    useSetDoc,
+    useAddDoc,
+    useGetDocs,
+    useGetDoc,
+    useDelDoc,
+    useUpdateDoc,
+  } = useFireStore();
 
   const handleSetDoc = async () => {
     const res = await useSetDoc({
@@ -30,10 +33,10 @@ const Userlogin = () => {
   const handleAddDoc = async () => {
     const res = await useAddDoc({
       collectionName: 'users',
-      
+
       data: {
         displayName: 'Faisal',
-        email:"faisal@gmail.com"
+        email: 'faisal@gmail.com',
       },
     });
     console.log(res);
@@ -42,20 +45,17 @@ const Userlogin = () => {
   const handleGetDocs = async () => {
     const res = await useGetDocs({
       collectionName: 'users',
-      
-      
     });
-    
-    console.log(res);
-    
+
+    res.forEach((doc) => {
+      console.log(doc.data());
+    });
   };
 
   const handleGetDoc = async () => {
     const res = await useGetDoc({
       collectionName: 'users',
-      id:'7zRzZn62vujcezbIrne5'
-      
-      
+      id: '7zRzZn62vujcezbIrne5',
     });
     console.log(res);
   };
@@ -63,8 +63,6 @@ const Userlogin = () => {
   const handleDelDoc = async () => {
     const res = await useDelDoc({
       collectionName: 'users',
-      
-      
     });
     console.log(res);
   };
@@ -72,23 +70,20 @@ const Userlogin = () => {
   const handleUpdateDoc = async () => {
     const res = await useUpdateDoc({
       collectionName: 'users',
-      id:'7zRzZn62vujcezbIrne5',
+      id: '7zRzZn62vujcezbIrne5',
       data: {
         displayName: 'set new person',
-        email:"faisal@gmail.comxxxccc"
+        email: 'faisal@gmail.comxxxccc',
       },
-      
     });
     console.log(res);
   };
-
 
   const logInWithEmailAndPassword = async (e) => {
     e.preventDefault();
     try {
       const res = await signInWithEmailAndPassword(auth, email, pass);
       console.log(res);
-      
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -96,17 +91,15 @@ const Userlogin = () => {
   };
   return (
     <>
-    <div className=' text-center'>
-      <button onClick={handleSetDoc}>set doc </button> <br />
-      <button onClick={handleAddDoc}>add doc </button> <br />
-      <button onClick={handleGetDocs}>get docs </button> <br />
-      <button onClick={handleGetDoc}>get doc </button> <br />
-      <button onClick={handleDelDoc}>delete doc </button> <br />
-      <button onClick={handleUpdateDoc}>update doc </button>
-    </div>
-      
-      
-      
+      <div className='text-center '>
+        <button onClick={handleSetDoc}>set doc </button> <br />
+        <button onClick={handleAddDoc}>add doc </button> <br />
+        <button onClick={handleGetDocs}>get docs </button> <br />
+        <button onClick={handleGetDoc}>get doc </button> <br />
+        <button onClick={handleDelDoc}>delete doc </button> <br />
+        <button onClick={handleUpdateDoc}>update doc </button>
+      </div>
+
       <section className='flex flex-col min-h-screen md:flex-row '>
         <div className='flex items-center justify-center w-full px-6 bg-white md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 lg:px-16 xl:px-12'>
           <div className='w-full '>

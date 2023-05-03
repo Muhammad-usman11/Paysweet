@@ -1,27 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { useAuthentication } from '../hooks/useAuthentication';
 
-
-import { useStoreActions } from 'easy-peasy';
-
 const UserSignUp = () => {
-  const navigate = useNavigate();
-  const user = useStoreActions((action) => action.setUser);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const { useUserSignUp } = useAuthentication()
-  
-  
+  const { useUserSignUp, handleUserInfo, userInfo } = useAuthentication();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    useUserSignUp()
-    
+    useUserSignUp();
   };
 
   return (
@@ -44,8 +30,7 @@ const UserSignUp = () => {
                 <input
                   type='email'
                   name='email'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleUserInfo}
                   required
                   placeholder='Enter Email Address'
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
@@ -58,8 +43,7 @@ const UserSignUp = () => {
                 <input
                   type='password'
                   name='password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleUserInfo}
                   required
                   placeholder='Enter Password'
                   minLength={6}
