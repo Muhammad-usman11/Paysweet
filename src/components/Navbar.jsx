@@ -9,6 +9,7 @@ import { getDoc, doc } from "firebase/firestore";
 const Navbar = () => {
 
   // useStoreState == useSelector (state from store)
+  // useStoreActions == useDispatch (Action from store)
 
   const user = useStoreState((state) => state.user);
   const logOut = useStoreActions((action) => action.logOut);

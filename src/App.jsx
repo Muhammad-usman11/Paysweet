@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { useLocation } from "react-router-dom";
 import { useStoreRehydrated } from "easy-peasy";
+import NewInvoice from "./components/NewInvoice";
 
 const App = () => {
   const isRehydrated = useStoreRehydrated();
@@ -31,6 +32,7 @@ const App = () => {
             <Route exact path="/login" element={<Userlogin />} />
             <Route exact path="/signup" element={<UserSignUp />} />
             <Route exact path="/invoices" element={<Invoices />} />
+            <Route exact path="/newinvoice" element={ <NewInvoice/> } />
           </Routes>
           {checkLoginPages() === true ? <Footer /> : ""}
         </>

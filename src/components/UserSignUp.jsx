@@ -1,13 +1,15 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthentication } from '../hooks/useAuthentication';
 
 const UserSignUp = () => {
-  const { useUserSignUp, handleUserInfo, userInfo, handleConfirmPass } = useAuthentication();
-
+  const { useUserSignUp, handleUserInfo, userInfo, handleConfirmPass, isDisabled } = useAuthentication();
+  
+  
   const onSubmit = async (e) => {
     e.preventDefault();
-    if(handleConfirmPass == true){
+    if(handleConfirmPass() == true){
       useUserSignUp();
     }
     else{
@@ -22,7 +24,8 @@ const UserSignUp = () => {
       <section className='flex flex-col md:flex-row '>
         <div className='flex items-center justify-center w-full px-6 bg-white md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 lg:px-16 xl:px-12'>
           <div className='w-full '>
-            <h2 className=' text-[32px] font-bold text-[#0652DD] '>Paysweet</h2>
+            <Link to="/" > 
+            <h2 className=' text-[32px] font-bold text-[#0652DD] '>Paysweet</h2> </Link>
             <h1 className='text-xl md:text-[56px] font-bold leading-tight mt-[150px] '>
               Sign up
             </h1>
@@ -31,11 +34,12 @@ const UserSignUp = () => {
               as Google.{' '}
             </h4>
 
-            <form className='mt-6' action='#' method='POST'>
+            <form className='mt-6' action='#' method='POST'  onSubmit={onSubmit} >
             <div>
                 <label className='block text-gray-700'>Full Name</label>
                 <input
                   type='text'
+                  
                   name='displayName'
                   onChange={handleUserInfo}
                   required
@@ -52,7 +56,7 @@ const UserSignUp = () => {
                   type='email'
                   name='email'
                   onChange={handleUserInfo}
-                 
+                  required
                   placeholder='Enter Email Address'
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
                   autoFocus=''
@@ -65,7 +69,7 @@ const UserSignUp = () => {
                   type='password'
                   name='password'
                   onChange={handleUserInfo}
-                  
+                  required
                   placeholder='Enter Password'
                   minLength={6}
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
@@ -78,7 +82,7 @@ const UserSignUp = () => {
                   type='password'
                   name='confirmPassword'
                   onChange={handleUserInfo}
-              
+                  required
                   placeholder='Confirm Password'
                   minLength={6}
                   className='w-full px-4 py-3 mt-2 bg-gray-200 border rounded-lg focus:border-blue-500 focus:bg-white focus:outline-none'
@@ -87,8 +91,8 @@ const UserSignUp = () => {
 
               <button
                 type='submit'
-                onClick={onSubmit}
-                className='block w-full px-4 py-3 mt-6 font-semibold text-white bg-indigo-500 rounded-lg hover:bg-indigo-400 focus:bg-indigo-400'
+                disabled={isDisabled}
+                className='block w-full px-4 py-3 mt-6 font-semibold text-white bg-indigo-500 rounded-lg '
               >
                 Sign Up
               </button>
@@ -96,6 +100,7 @@ const UserSignUp = () => {
             <hr className='w-full my-6 border-gray-300' />
             <button
               type='button'
+              
               className='block w-full px-4 py-3 font-semibold text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:bg-gray-100'
             >
               <div className='flex items-center justify-center'>

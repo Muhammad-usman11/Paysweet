@@ -32,11 +32,12 @@ const Userlogin = () => {
 
   const handleAddDoc = async () => {
     const res = await useAddDoc({
-      collectionName: 'users',
+      collectionName: 'customers',
 
       data: {
-        displayName: 'Faisal',
-        email: 'faisal@gmail.com',
+        customerName:'faisal',
+        cid:'22',
+        paymentMethod:'card',
       },
     });
     console.log(res);
@@ -103,7 +104,8 @@ const Userlogin = () => {
       <section className='flex flex-col min-h-screen md:flex-row '>
         <div className='flex items-center justify-center w-full px-6 bg-white md:max-w-md lg:max-w-full md:mx-auto md:w-1/2 xl:w-1/3 lg:px-16 xl:px-12'>
           <div className='w-full '>
-            <h2 className=' text-[32px] font-bold text-[#0652DD] '>Paysweet</h2>
+            <Link to="/" >
+            <h2 className=' text-[32px] font-bold text-[#0652DD] '>Paysweet</h2> </Link>
             <h1 className='text-xl md:text-6xl font-bold leading-tight mt-[150px] '>
               Log in
             </h1>

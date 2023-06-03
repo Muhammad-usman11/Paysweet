@@ -8,7 +8,7 @@ import { useFireStore } from './useFireStore';
 export const useAuthentication = () => {
   const setUser = useStoreActions((action) => action.setUser);
   const { useSetDoc } = useFireStore();
-
+  const [ isDisabled, setIsDisabled ] = useState(false)
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
@@ -22,6 +22,12 @@ export const useAuthentication = () => {
     e.preventDefault();
 
     setUserInfo((prev) => {
+      // if(e.target.name == "displayName" && e.target.value.length < 1){
+      //    console.log(e.target.value);
+      //   return setIsDisabled(true)
+        
+      // }
+      
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
@@ -62,5 +68,5 @@ export const useAuthentication = () => {
     }
   };
 
-  return { useUserSignUp, handleUserInfo, userInfo, setUser, handleConfirmPass };
+  return { useUserSignUp, handleUserInfo, userInfo, setUser, handleConfirmPass, isDisabled };
 };

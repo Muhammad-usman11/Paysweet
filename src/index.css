@@ -1,3 +1,60 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+label {
+  font-family: sans-serif;
+  font-size: 1rem;
+  padding-right: 10px;
+}
+
+select {
+  font-size: 0.9rem;
+  padding: 10px 10px;
+}
+
+.box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    max-width: 600px;
+  }
+  .wrapper{
+    max-width: 1480px;
+    width: 80%;
+    margin: auto;
+  }
+  .flex-basis > div{
+    flex-basis: 100% !important;
+  }
+  .userIcon{
+    max-width: 30px;
+      margin: auto;
+      display: block;
+  }
+  input{
+    outline: none;
+    border: 1px solid grey;
+  }
+  
+  @layer components {
+    .heading1{
+      @apply text-[16px] sm:text-3xl font-bold mb-10
+    }
+    .btn-outline {
+      @apply font-bold text-[#343440] border-[3px] border-solid rounded-xl text-[11px] sm:text-[22px]  w-[100%] mt-5 sm:mt-10 py-[4px] sm:py-[8px];
+    }
+    .btn-blue{
+      @apply text-[#FFFFFF] mt-5 sm:mt-10 bg-[#0652DD] border-[1px] border-solid rounded-xl text-[11px] sm:text-[21px] font-bold w-[100%]  py-[7px] sm:py-[10px] 
+    }
+    .btn-primary{
+      @apply text-[#FFFFFF] mt-5 sm:mt-10 bg-[#0652DD] border-[1px] border-solid rounded-xl text-[11px] sm:text-[21px] font-bold w-[100%]  py-[7px] sm:py-[10px] 
+    }
+    .primary-input{
+      @apply outline-none w-full mt-1  border border-solid px-2 py-2 rounded-lg
+    }
+    .secondary-input{
+      @apply outline-none w-[100%] mt-1 mb-5  border border-solid px-2 py-2 rounded-lg
+    }
+    .primary-label{
+      @apply text-[#808087]  text-[14px] font-bold
+    }
+  }
